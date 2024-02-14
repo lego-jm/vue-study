@@ -1,0 +1,26 @@
+<div id="app"></div>
+
+<script>
+  // data라는 변수 지정, 객체 a키에 값10을 지정
+  const data = {
+    a: 10,
+  };
+
+  // Proxy:
+  // 첫번째 인자: 데이터 인자
+  // 두번째 인자: 데이터의 동작을 정의하는 인자
+  // data의 동작을 모방하겠다?
+  // 객체의 값을 접근할 때와 객체의 값을 갱신하는 것들이
+  // 프록시를 통해서 객체의 동작을 정의할 수 있다.
+
+  const app = new Proxy(data, {
+    // 사용가능한 인자는 get(), set()이 있음
+    // get -> data 객체에 접근할 때마다 출력할 내용
+    get() {
+      console.log("값 접근");
+    },
+    set() {
+      console.log("값 갱신");
+    },
+  });
+</script>
