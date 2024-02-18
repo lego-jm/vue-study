@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <app-header v-bind:app-title="message"></app-header>
+      <app-contents v-on:login="receive"></app-contents>
+    </div>
+    <script>
+      const appHeader = {
+        props: ["appTitle"],
+        template: "<h1>{{ appTitle }}</h1>",
+      };
+
+      const appContent = {
+        template: `
+          <p>
+            <button v-on:click="sendEvent">로그인</button>
+          </p>
+        `,
+        methods: {
+          sendEvent() {
+            this.$emit("login");
+          },
+        },
+      };
+
+      Vue.createApp({
+        data() {
+          return {
+            message: "",
+          };
+        },
+        methods: {
+          receive() {
+            console.log("받음");
+            this.message = "로그인 됨";
+          },
+        },
+        components: {
+          "app-header": appHeader,
+          "app-contents": appContent,
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

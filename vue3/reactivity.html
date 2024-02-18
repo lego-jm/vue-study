@@ -1,17 +1,26 @@
-<div id="app"></div>
+<div id="app">
+  <!-- 여기에 렌더링이 된다 -->
+</div>
 
 <script>
   // data라는 변수 지정, 객체 a키에 값10을 지정
   const data = {
-    a: 10,
+    message: 10,
   };
 
-  // Proxy:
+  function render(sth) {
+    const div = document.querySelector("#app");
+    div.innerHTML = sth;
+  }
+
+  // Proxy
   // 첫번째 인자: 데이터 인자
   // 두번째 인자: 데이터의 동작을 정의하는 인자
   // data의 동작을 모방하겠다?
   // 객체의 값을 접근할 때와 객체의 값을 갱신하는 것들이
   // 프록시를 통해서 객체의 동작을 정의할 수 있다.
+
+  // DOM API: HTML 태그 정보를 접근할 수 있는 기능
 
   const app = new Proxy(data, {
     // 사용가능한 인자는 get(), set()이 있음
@@ -19,8 +28,16 @@
     get() {
       console.log("값 접근");
     },
-    set() {
+
+    /* 
+    첫번째 인자 target: 엘리멘트
+    두번째 인자 prop: 속성
+    세번째 인자 value: 변경된 값
+    */
+    set(target, prop, value) {
       console.log("값 갱신");
+      target[prop] = value;
+      render(value);
     },
   });
 </script>
