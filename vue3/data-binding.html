@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1. v-if -->
+      <p v-if="login">로그인되었습니다.</p>
+      <p v-else>로그인 하세요.</p>
+      <button v-on:click="loginUser">로그인</button>
+
+      <hr />
+
+      <!-- 2. v-show -->
+      <!-- v-show는 display:none 처리가 된다. -->
+      <p v-show="login">로그인되었습니다.</p>
+      <button v-on:click="loginUser">로그인</button>
+    </div>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            login: false,
+          };
+        },
+        methods: {
+          loginUser() {
+            this.login = !this.login;
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
